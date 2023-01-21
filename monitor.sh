@@ -34,7 +34,7 @@ kernel=$(uname -r)
 
 # format data as JSON payload
 stats=$(jq -n \
-        --arg monitor_version "$monitor_version" \
+        --arg monitor_version "$MONITOR_VERSION" \
         --arg cpu_usage "$cpu_usage" \
         --arg mem_total "$mem_total" \
         --arg mem_free "$mem_free" \
@@ -44,6 +44,6 @@ stats=$(jq -n \
         --arg hostname "$hostname" \
         --arg os "$os" \
         --arg kernel "$kernel" \
-        '{monitor_version: $MONITOR_VERSION, cpu_usage: $cpu_usage, mem_total: $mem_total, mem_free: $mem_free, mem_available: $mem_available, disk_total: $disk_total, disk_used: $disk_used, hostname: $hostname, os: $os, kernel: $kernel}')
+        '{monitor_version: $monitor_version, cpu_usage: $cpu_usage, mem_total: $mem_total, mem_free: $mem_free, mem_available: $mem_available, disk_total: $disk_total, disk_used: $disk_used, hostname: $hostname, os: $os, kernel: $kernel}')
 
 curl -X POST -H "Authorization: Bearer $API_KEY" -H "Content-Type: application/json" -d "$stats" $MONITOR_ENDPOINT
